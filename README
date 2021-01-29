@@ -1,0 +1,10 @@
+Faça git clone da aplicação
+
+Docker nginx + php-fpm + wordpress cli
+    docker-compose build
+
+Para acessar o container wp-cli
+    docker exec -ti wp-cli bash
+        Para instalar wordpress
+            wp core download --path=./ --locale=pt_BR
+
