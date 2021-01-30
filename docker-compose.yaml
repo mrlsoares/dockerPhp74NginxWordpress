@@ -22,7 +22,7 @@ services:
       WORDPRESS_DB_USER: ${APP_DB_DATABASE}
       WORDPRESS_DB_PASSWORD: ${APP_DB_PASSWORD}
     volumes:
-      - ./wp:/var/www
+      - ./wp:/var/www/html
     networks:
       - soares_net
   nginx:
@@ -33,7 +33,7 @@ services:
       - 443:443
       - 80:80
     volumes:
-      - ./wp:/var/www
+      - ./wp:/var/www/html
       - ./.docker/nginx/conf.d/:/etc/nginx/conf.d/
       - ./.docker/nginx/ssl/:/etc/nginx/ssl/
     networks:

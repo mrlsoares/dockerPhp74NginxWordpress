@@ -1,6 +1,6 @@
 FROM php:7.4-fpm-alpine
 
-WORKDIR /var/www/
+WORKDIR /var/www/html
 
 RUN apk add --update --no-cache libgd libpng-dev libjpeg-turbo-dev freetype-dev
 
@@ -34,13 +34,13 @@ RUN apk add --no-cache  --virtual .phpize-deps $PHPIZE_DEPS \
     bash \
     nano
 
-RUN docker-php-ext-install  mysqli pdo pdo_mysql && docker-php-ext-enable pdo_mysql
+#RUN docker-php-ext-install  mysqli pdo pdo_mysql && docker-php-ext-enable pdo_mysql
 RUN docker-php-ext-install -j$(nproc) gd
 # Adjust TimeZone
 RUN cp  /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 RUN echo "America/Sao_Paulo" > /etc/timezone
 RUN rm -rf /var/cache/apk/*
-RUN rm -rf /var/www/html
+#RUN rm -rf /var/www/html
 
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -49,7 +49,7 @@ RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 
 RUN usermod -u 1000 www-data
-RUN chown -R www-data:www-data /var/www
+RUN chown -R www-data:www-data /var/www/html
 
 USER www-data
 
