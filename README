@@ -1,13 +1,16 @@
+Docker nginx + php-fpm + wordpress cli
+
 Faça git clone da aplicação
+
+Altere as configurações do .env-example
 cp .env-example .env
 
-Docker nginx + php-fpm + wordpress cli
-    construir os containers
-        docker-compose build
-    iniciar os containers
-        docker-compose up -d
-    finalizar os containers
-        docker-compose down
+construir os containers
+    docker-compose build
+iniciar os containers
+    docker-compose up -d
+finalizar os containers
+    docker-compose down
 
 
 
