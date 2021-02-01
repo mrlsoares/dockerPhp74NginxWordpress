@@ -2,31 +2,35 @@ version: '3.7'
 
 services:
   app:
-    build:
-      dockerfile: .docker/php-fpm/Dockerfile
-      context: .
+    image: wordpress:5.6.0-php7.4-fpm-alpine
+#    build:
+##      dockerfile: .docker/php-fpm/Dockerfile
+#      context: .
     restart: unless-stopped
     container_name: wp-cli
     tty: true
     env_file: .env
     environment:
       DB_CONNECTION: ${APP_DB_CONNECTION}
-      DB_HOST: ${APP_DB_HOST}
+      DB_HOST: ${APP_DB_HOST}:${APP_DB_PORT}
       DB_PORT: ${APP_DB_PORT}
       DB_DATABASE: ${APP_DB_DATABASE}
       DB_USERNAME: ${APP_DB_USERNAME}
       DB_PASSWORD: ${APP_DB_PASSWORD}
-      WORDPRESS_DB_NAME: ${COMPOSE_PROJECT_NAME}
       WORDPRESS_TABLE_PREFIX: ${WORDPRESS_TABLE_PREFIX}
-      WORDPRESS_DB_HOST: ${APP_DB_HOST}
-      WORDPRESS_DB_USER: ${APP_DB_DATABASE}
+      WORDPRESS_DB_HOST: ${APP_DB_HOST}:${APP_DB_PORT} # default mysql port
       WORDPRESS_DB_PASSWORD: ${APP_DB_PASSWORD}
+      WORDPRESS_DB_NAME: ${APP_DB_DATABASE}
+      WORDPRESS_DB_USER: ${APP_DB_USERNAME} # matches $MYSQL_USER
+    depends_on:
+      - mariadb
     volumes:
       - ./wp:/var/www/html
     networks:
       - soares_net
   nginx:
     image: nginx:1.19.0-alpine
+    container_name: webserver
     restart: unless-stopped
     tty: true
     ports:
@@ -42,7 +46,7 @@ services:
   mariadb:
     image: "mariadb:${MARIADB_VERSION}"
     restart: 'always'
-    container_name: base
+    container_name: mariadb
     ports:
     - 3306:3306
     volumes:

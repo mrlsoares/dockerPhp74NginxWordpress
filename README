@@ -1,4 +1,5 @@
-Fa�a git clone da aplicação
+Faça git clone da aplicação
+cp .env-example .env
 
 Docker nginx + php-fpm + wordpress cli
     construir os containers
@@ -7,9 +8,6 @@ Docker nginx + php-fpm + wordpress cli
         docker-compose up -d
     finalizar os containers
         docker-compose down
-Para acessar o container wp-cli
-    docker exec -ti wp-cli bash
-        Para instalar wordpress em portugues Brasil
-            wp core download --path=./ --locale=pt_BR
+
 
 
