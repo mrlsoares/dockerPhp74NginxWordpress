@@ -1,6 +1,9 @@
-Docker nginx + php-fpm + wordpress cli
+Docker nginx + php-fpm + wordpress
 
 Faça git clone da aplicação
+
+certifique-se a porta  [80 | 443] não estejam ocupadas
+
 
 Altere as configurações do .env-example
 cp .env-example .env
@@ -12,5 +15,7 @@ iniciar os containers
 finalizar os containers
     docker-compose down
 
+Para acessar o site local
+    https://0.0.0.0/
 
 

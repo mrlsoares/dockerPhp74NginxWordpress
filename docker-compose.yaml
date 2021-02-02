@@ -7,7 +7,7 @@ services:
 ##      dockerfile: .docker/php-fpm/Dockerfile
 #      context: .
     restart: unless-stopped
-    container_name: wp-cli
+    container_name: wp
     tty: true
     env_file: .env
     environment:
